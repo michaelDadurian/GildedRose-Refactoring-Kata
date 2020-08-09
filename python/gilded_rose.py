@@ -18,43 +18,44 @@ class GildedRose(object):
             # Do nothing for legendary items
             if is_legendary:
                 continue
+            else:
 
-            # For all other item types, handle case where there is still time to sell
-            if item.sell_in >= 0 and item.quality < 50 and item.quality >= 0:
-                if is_quality_increase:
-                    # Special case for Backstage passes
-                    if item.name.startswith("Backstage passes"):
-                        if item.sell_in <= 10 and item.sell_in > 5:
-                            item.quality += 2
-                        elif item.sell_in <= 5 and item.sell_in >= 0:
-                            item.quality += 3
+                # For all other item types, handle case where there is still time to sell
+                if item.sell_in >= 0 and item.quality < 50 and item.quality >= 0:
+                    if is_quality_increase:
+                        # Special case for Backstage passes
+                        if item.name.startswith("Backstage passes"):
+                            if item.sell_in <= 10 and item.sell_in > 5:
+                                item.quality += 2
+                            elif item.sell_in <= 5 and item.sell_in >= 0:
+                                item.quality += 3
+                            else:
+                                item.quality += 1
+
+                        # For other quality increase items, just increase quality by 1
                         else:
                             item.quality += 1
-
-                    # For other quality increase items, just increase quality by 1
-                    else:
-                        item.quality += 1
-                # Decrease quality by 2 for conjured items
-                elif is_conjured:
-                    item.quality -= 2
-                else:
-                    item.quality -= 1
-
-            # Handle case where the sell_in date is < 0, quality values double
-            else:
-                if item.quality < 50 and item.quality >= 0:
-                    if is_quality_increase:
-                        if item.name.startswith("Backstage passes"):
-                            item.quality = 0
-                        else:
-                            item.quality += 2
+                    # Decrease quality by 2 for conjured items
                     elif is_conjured:
-                        item.quality -= 4
-                    else:
                         item.quality -= 2
+                    else:
+                        item.quality -= 1
 
-            # Always decrease sell_in date by 1
-            item.sell_in -= 1
+                # Handle case where the sell_in date is < 0, quality values double
+                else:
+                    if item.quality < 50 and item.quality >= 0:
+                        if is_quality_increase:
+                            if item.name.startswith("Backstage passes"):
+                                item.quality = 0
+                            else:
+                                item.quality += 2
+                        elif is_conjured:
+                            item.quality -= 4
+                        else:
+                            item.quality -= 2
+
+                # Always decrease sell_in date by 1
+                item.sell_in -= 1
 
 class Item:
     def __init__(self, name, sell_in, quality):

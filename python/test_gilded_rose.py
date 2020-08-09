@@ -4,7 +4,6 @@ import unittest
 from gilded_rose import Item, GildedRose
 
 class GildedRoseTest(unittest.TestCase):
-    '''
     def test_foo(self):
         items = [Item("foo", 0, 0)]
         gilded_rose = GildedRose(items)
@@ -16,7 +15,7 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEquals(80, items[0].quality)
-        self.assertEquals(30, items[0].sell_in)
+        self.assertEquals(29, items[0].sell_in)
 
     def test_conjured(self):
         items = [Item("Luminous Cloth", 30, 25)]
@@ -31,7 +30,7 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEquals(26, items[0].quality)
         self.assertEquals(29, items[0].sell_in)
-    '''
+
     def test_backstage_quality_1(self):
         items = [Item("Backstage passes to a TAFKAL80ETC concert", 15, 30)]
         gilded_rose = GildedRose(items)
